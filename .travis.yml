@@ -24,8 +24,6 @@ script:
   fi'
 
 sudo: required
-
 install: true
-
 notifications:
   email: true
