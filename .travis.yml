@@ -1,0 +1,9 @@
+language: java
+
+script:
+- mvn -P cloud-integration-tests clean install -Denv.SAP_CLOUD_API=$TARGET_API -Denv.SAP_CLOUD_ORG=$CF_ORG -Denv.SAP_CLOUD_SPACE=$CF_SPACE -Denv.SAP_CLOUD_USERNAME=$DEPLOY_USERNAME -Denv.SAP_CLOUD_PASSWORD=$DEPLOY_PASSWORD 
+
+install: true
+
+notifications:
+  email: true

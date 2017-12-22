@@ -1,0 +1,4 @@
+---
+applications:
+- name: cf-hello-world
+  memory: 128M
