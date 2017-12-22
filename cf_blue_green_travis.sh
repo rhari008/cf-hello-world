@@ -36,7 +36,8 @@ finally ()
 #Inform that the deployment has failed for some reason
 on_fail () {
   finally
-  echo "DEPLOY FAILED - you may need to check 'cf apps' and 'cf routes' and do manual cleanup"
+  echo "DEPLOY FAILED - you may need to check 'cf apps' and 'cf routes' and do manual cleanup"  
+  EXIT 1
 }
 
 # pull the up-to-date manifest from the BLUE (existing) application
