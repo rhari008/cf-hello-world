@@ -62,7 +62,6 @@
           				<space>${sap.cloud.space}</space>
           				<org>${sap.cloud.org}</org>
           				<appname>cf-hello-world</appname>
-	                    <trustSelfSignedCerts>true</trustSelfSignedCerts>
 	                  </configuration>
               		  <executions>					
 						<execution>
