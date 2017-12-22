@@ -64,7 +64,7 @@
           				<appname>cf-hello-world</appname>
           				<memory>512</memory>
           				<env>
-          				  <JBP_CONFIG_OPEN_JDK_JRE>{ memory_calculator: { memory_sizes: { metaspace: 16m } } }</JBP_CONFIG_OPEN_JDK_JRE>
+          				  <JAVA_OPTS>-Xms128m -Xmx512m</JAVA_OPTS>
           				</env>
 	                  </configuration>
               		  <executions>					
