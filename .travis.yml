@@ -3,7 +3,26 @@ language: java
 script:
 - mvn -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -P cloud-integration-tests clean install -Denv.SAP_CLOUD_API=$SAP_CLOUD_API -Denv.SAP_CLOUD_ORG=$SAP_CLOUD_ORG -Denv.SAP_CLOUD_SPACE=$SAP_CLOUD_SPACE -Denv.SAP_CLOUD_USERNAME=$SAP_CLOUD_USERNAME -Denv.SAP_CLOUD_PASSWORD=$SAP_CLOUD_PASSWORD
 
+after_success:
+  - chmod +x ./cf_blue_green_travis.sh
+  - chmod +x ./cf_blue_green.sh
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install g++-4.8
+  - sudo ./cf_blue_green_travis.sh
+  
+sudo: required
+
 install: true
 
 notifications:
   email: true
+env:
+   global:
+   - CXX=g++-4.8
+   - CF_APP=cf-hello-world
+   - CF_API=$SAP_CLOUD_API
+   - CF_USERNAME=$SAP_CLOUD_USERNAME
+   - CF_PASSWORD=$SAP_CLOUD_PASSWORD
+   - CF_ORGANIZATION=$SAP_CLOUD_ORG
+   - CF_SPACE=$SAP_CLOUD_PROD_SPACE
