@@ -53,7 +53,7 @@ sed -i -e "s?path: ?path: $CURRENTPATH/?g" $MANIFEST
 trap on_fail ERR
 
 #Prepare the URL of the green application
-DOMAIN=$CF_API
+DOMAIN=$CF_DOMAIN
 cf push -f $MANIFEST
 GREENURL=https://${GREEN}.${DOMAIN}
 
