@@ -1,48 +1,71 @@
-	#Set the application name in BLUE variable
-    BLUE=$CF_APP 
+#!/bin/bash
+echo "Commencing Part 1 execution --- "
+# Exit immediately incase of non zero status return
+Set -e
 
-    #Green variable will store a temporary name for the application 
-    GREEN="${BLUE}-B"
+# Get the cloud foundry public key and add the repository
+wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+echo "deb http://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
 
-    #Remove manifest information stored in the temporary directory
-    finally ()
-    {
-      rm $MANIFEST
-    }
+# Update the local package index, then install the cf CLI
+sudo apt-get update
+sudo apt-get install cf-cli
 
-    #Inform that the deployment has failed for some reason
-    on_fail () {
-      finally
-      echo "DEPLOY FAILED - you may need to check 'cf apps' and 'cf routes' and do manual cleanup"
-    }
+# Login to Cloud Foundry
+cf api $CF_API #Use the cf api command to set the api endpoint
+cf login -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORGANIZATION -s $CF_SPACE
 
-    # pull the up-to-date manifest from the BLUE (existing) application
-    MANIFEST=$(mktemp -t "${BLUE}_manifest.temp")
+# Get the script path to execute the script
+pushd `dirname $0` > /dev/null
+popd > /dev/null
 
-    #Create the new manifest file for deployment
-    cf create-app-manifest $BLUE -p $MANIFEST
-    
-    #Find and replace the application name (to the name stored in green variable) in the manifest file
-    sed -i -e "s/: ${BLUE}/: ${GREEN}/g" $MANIFEST
-    sed -i -e "s?path: ?path: $CURRENTPATH/?g" $MANIFEST
+echo "Part 1 to get the Travis environment ready - Completed successfully"
 
-    trap on_fail ERR
-    
-    #Prepare the URL of the green application
-    DOMAIN=$CF_API
-    cf push -f $MANIFEST
-    GREENURL=https://${GREEN}.${DOMAIN}
-    
-    #Check the URL to find if it fails
-    curl --fail -I -k $GREENURL
+#Set the application name in BLUE variable
+BLUE=$CF_APP 
 
-    #Reroute the application URL to the green process
-    cf routes | tail -n +4 | grep $BLUE | awk '{print $3" -n "$2}' | xargs -n 3 cf map-route $GREEN
+#Green variable will store a temporary name for the application 
+GREEN="${BLUE}-B"
 
-    #Perform deletion of old application and rename the green process to blue 
-    cf delete $BLUE -f
-    cf rename $GREEN $BLUE
-    cf delete-route $DOMAIN -n $GREEN -f
-    finally
-    
-    echo "DONE"
+#Remove manifest information stored in the temporary directory
+finally ()
+{
+  rm $MANIFEST
+}
+
+#Inform that the deployment has failed for some reason
+on_fail () {
+  finally
+  echo "DEPLOY FAILED - you may need to check 'cf apps' and 'cf routes' and do manual cleanup"
+}
+
+# pull the up-to-date manifest from the BLUE (existing) application
+MANIFEST=$(mktemp -t "${BLUE}_manifest.temp")
+
+#Create the new manifest file for deployment
+cf create-app-manifest $BLUE -p $MANIFEST
+
+#Find and replace the application name (to the name stored in green variable) in the manifest file
+sed -i -e "s/: ${BLUE}/: ${GREEN}/g" $MANIFEST
+sed -i -e "s?path: ?path: $CURRENTPATH/?g" $MANIFEST
+
+trap on_fail ERR
+
+#Prepare the URL of the green application
+DOMAIN=$CF_API
+cf push -f $MANIFEST
+GREENURL=https://${GREEN}.${DOMAIN}
+
+#Check the URL to find if it fails
+curl --fail -I -k $GREENURL
+
+#Reroute the application URL to the green process
+cf routes | tail -n +4 | grep $BLUE | awk '{print $3" -n "$2}' | xargs -n 3 cf map-route $GREEN
+
+#Perform deletion of old application and rename the green process to blue 
+cf delete $BLUE -f
+cf rename $GREEN $BLUE
+cf delete-route $DOMAIN -n $GREEN -f
+finally
+
+echo "DONE"
