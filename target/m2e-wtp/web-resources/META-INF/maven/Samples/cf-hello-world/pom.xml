@@ -58,7 +58,7 @@
               		  <executions>					
 						<execution>
 						  <id>deploying-application</id>
-						  <phase>deploy</phase>
+						  <phase>package</phase>
 						  <goals>
 							<goal>push</goal>
 						  </goals>
