@@ -40,7 +40,7 @@ on_fail () {
 }
 
 # pull the up-to-date manifest from the BLUE (existing) application
-MANIFEST=$(mktemp -t "${BLUE}_manifest.temp")
+MANIFEST=$(mktemp -t "${BLUE}_manifestXXXX.temp")
 
 #Create the new manifest file for deployment
 echo "This is the manifest file and blue app: ${BLUE} and ${MANIFEST}" 
