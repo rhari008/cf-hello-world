@@ -63,6 +63,7 @@
           				<org>${sap.cloud.org}</org>
           				<appname>cf-hello-world</appname>
 	                    <memory>256</memory>
+	                    <trustSelfSignedCerts>true</trustSelfSignedCerts>
 	                  </configuration>
               		  <executions>					
 						<execution>
