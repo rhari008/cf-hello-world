@@ -43,6 +43,7 @@ on_fail () {
 MANIFEST=$(mktemp -t "${BLUE}_manifest.temp")
 
 #Create the new manifest file for deployment
+echo "This is the manifest file and blue app: ${BLUE} and ${MANIFEST}" 
 cf create-app-manifest $BLUE -p $MANIFEST
 
 #Find and replace the application name (to the name stored in green variable) in the manifest file

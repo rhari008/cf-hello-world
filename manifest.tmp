@@ -1,0 +1,10 @@
+applications:
+- name: myfirstapp
+  instances: 1
+  memory: 128M
+  disk_quota: 1024M
+  routes:
+  - route: myfirstapp.cfapps.us20.hana.ondemand.com
+  buildpack: https://github.com/cloudfoundry/buildpack-python.git
+  command: python helloworld.py
+  stack: cflinuxfs2
