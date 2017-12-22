@@ -63,6 +63,9 @@
           				<org>${sap.cloud.org}</org>
           				<appname>cf-hello-world</appname>
           				<memory>512</memory>
+          				<env>
+          				  <JBP_CONFIG_OPEN_JDK_JRE>{ memory_calculator: { memory_sizes: { metaspace: 16m } } }</JBP_CONFIG_OPEN_JDK_JRE>
+          				</env>
 	                  </configuration>
               		  <executions>					
 						<execution>
