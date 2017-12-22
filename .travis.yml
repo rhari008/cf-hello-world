@@ -1,7 +1,7 @@
 language: java
 
 script:
-- mvn -P cloud-integration-tests clean install -Denv.SAP_CLOUD_API=$SAP_CLOUD_API -Denv.SAP_CLOUD_ORG=$SAP_CLOUD_ORG -Denv.SAP_CLOUD_SPACE=$SAP_CLOUD_SPACE -Denv.SAP_CLOUD_USERNAME=$SAP_CLOUD_USERNAME -Denv.SAP_CLOUD_PASSWORD=$SAP_CLOUD_PASSWORD -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
+- mvn -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -P cloud-integration-tests clean install -Denv.SAP_CLOUD_API=$SAP_CLOUD_API -Denv.SAP_CLOUD_ORG=$SAP_CLOUD_ORG -Denv.SAP_CLOUD_SPACE=$SAP_CLOUD_SPACE -Denv.SAP_CLOUD_USERNAME=$SAP_CLOUD_USERNAME -Denv.SAP_CLOUD_PASSWORD=$SAP_CLOUD_PASSWORD
 
 install: true
 
