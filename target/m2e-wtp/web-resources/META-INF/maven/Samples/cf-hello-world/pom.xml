@@ -55,6 +55,15 @@
               		  <groupId>org.cloudfoundry</groupId>
 					  <artifactId>cf-maven-plugin</artifactId>
 					  <version>1.0.4</version>
+					  <configuration>
+	                    <target>${sap.cloud.api}</target>
+	                    <username>${sap.cloud.username}</username>
+          				<password>${sap.cloud.password}</password>
+          				<space>${sap.cloud.space}</space>
+          				<org>${sap.cloud.org}</org>
+          				<appname>cf-hello-world</appname>
+	                    <memory>256</memory>
+	                  </configuration>
               		  <executions>					
 						<execution>
 						  <id>deploying-application</id>
@@ -63,16 +72,7 @@
 							<goal>push</goal>
 						  </goals>
 						</execution>
-					   </executions>
-  		 			  <configuration>
-	                    <target>${sap.cloud.api}</target>
-	                    <username>${sap.cloud.username}</username>
-          				<password>${sap.cloud.password}</password>
-          				<space>${sap.cloud.space}</space>
-          				<org>${sap.cloud.org</org>
-          				<appname>cf-hello-world</appname>
-	                    <memory>256</memory>
-	                  </configuration>
+					   </executions>  		 			  
   		 			</plugin>  		 			
   		 		</plugins>
 	    	</build>
