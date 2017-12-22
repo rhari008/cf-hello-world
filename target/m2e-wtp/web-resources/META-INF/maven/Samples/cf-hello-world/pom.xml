@@ -63,6 +63,7 @@
           				<org>${sap.cloud.org}</org>
           				<appname>cf-hello-world</appname>
           				<diskQuota>512</diskQuota>
+          				<memory>512</memory>
 	                  </configuration>
               		  <executions>					
 						<execution>
