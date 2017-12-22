@@ -50,6 +50,7 @@
 	    <profile>
 	    	<id>cloud-integration-tests</id>
 	    	<build>
+	    		<directory>/mvnbuild</directory>
 	    		<plugins>
   		 			<plugin>
               		  <groupId>org.cloudfoundry</groupId>

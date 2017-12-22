@@ -54,7 +54,7 @@ trap on_fail ERR
 
 #Prepare the URL of the green application
 DOMAIN=$CF_DOMAIN
-cf push -f $MANIFEST
+cf push -f $MANIFEST 
 GREENURL=https://${GREEN}.${DOMAIN}
 
 #Check the URL to find if it fails
