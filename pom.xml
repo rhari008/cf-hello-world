@@ -42,7 +42,7 @@
     		   <version>3.0.0</version>
         	   <configuration>
           		<warSourceDirectory>WebContent</warSourceDirectory>
-          		<outputDirectory>/mvnbuild</outputDirectory>
+          		<outputDirectory>/tmp</outputDirectory>
         	   </configuration>
       		</plugin>
 		</plugins>
